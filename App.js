@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {View,Text,TouchableOpacity,TextInput,} from 'react-native'
 import {styles} from './styles'
+import { parse } from '@babel/parser';
 
 
 export default class App extends Component {
@@ -17,9 +18,18 @@ export default class App extends Component {
 
     calc(operators) {
         switch (operators) {
-            case "plus":
+            case "+":
                 this.setState({result: parseFloat(this.state.number1) + parseFloat(this.state.number2)})
                 return this.state.result
+            case "-":
+                this.setState({result: parseFloat(this.state.number1) - parseFloat(this.state.number2)})
+                return this.state.result
+            case "*":
+                this.setState({result: parseFloat(this.state.number1) * parseFloat(this.state.number2)})
+                return this.state.result
+            case "/":
+                this.setState({result: parseFloat(this.state.number1) / parseFloat(this.state.number2)})
+                return this.state.result    
             default:
                 return 0    
         }
@@ -49,11 +59,31 @@ export default class App extends Component {
                     </TextInput>
                 </View>
                 <View style={styles.viewBtn}>
-                    <TouchableOpacity 
+                    {/* <TouchableOpacity 
                         style={styles.btnStyle}
-                        onPress={()=> this.calc("plus")}
+                        onPress={()=> this.calc("minus")}
                         >
                         <Text style={styles.btnTextStyle}>Click for result</Text>
+                    </TouchableOpacity> */}
+                    <TouchableOpacity 
+                            style={styles.touchableBtnLeft}
+                            onPress={()=> this.calc("+")}>
+                            <Text>+</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                            style={styles.touchableBtn}
+                            onPress={()=> this.calc("-")}>
+                            <Text>-</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                            style={styles.touchableBtn}
+                            onPress={()=> this.calc("*")}>
+                            <Text>*</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                            style={styles.touchableBtnRight}
+                            onPress={()=> this.calc("/")}>
+                            <Text>/</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.viewResult}>
